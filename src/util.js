@@ -8,21 +8,22 @@ const read = (prompt, fallback) => {
   }))
 }
 
-const matchCalendar = (calendars, res) => {
-  // If entered a number, use that as index into the calendar list
-  if (/^(0|[1-9]\d*)$/.test(res) && parseInt(res) < calendars.length) {
-    return calendars[parseInt(res)]
+const interactiveSelect = async (items, itemFormatter, itemMatcher, itemName = 'item') => {
+  console.log(`${itemName[0].toUpperCase() + itemName.slice(1)}s:`)
+  console.log(items.map((item, index) => `  ${index}: ${itemFormatter(item)}`).join('\n'))
+
+  const res = await read(`Please select a ${itemName}`)
+  let item
+
+  // If entered a number, use that as index into the item list
+  if (/^(0|[1-9]\d*)$/.test(res) && parseInt(res) < items.length) {
+    item = items[parseInt(res)]
+  } else {
+    item = itemMatcher(items, res)
   }
 
-  // If anything else, try to match on id, summaryOverride or summary
-  const resLC = res.toLowerCase()
-  for (let i = 0; i < calendars.length; i++) {
-    const calendar = calendars[i]
-    if ([calendar.id, calendar.summaryOverride, calendar.summary].filter(s => !!s).map(s => s.toLowerCase()).includes(resLC)) return calendar
-  }
-
-  console.warn(`Failed to find calendar matching ${res}, falling back to primary`)
-  return calendars.find(calendar => calendar.primary)
+  console.log(`Selected ${itemFormatter(item)}`)
+  return item
 }
 
-module.exports = { read, matchCalendar }
+module.exports = { read, interactiveSelect }

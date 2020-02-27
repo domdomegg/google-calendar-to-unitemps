@@ -20,12 +20,6 @@ const getAuth = async (scope) => {
   console.log(`Found previous token in ${SAVED_TOKEN_PATH}`)
   const credentials = JSON.parse(fs.readFileSync(SAVED_TOKEN_PATH))
 
-  // Check it hasn't expired
-  if (credentials.expiry_date < Date.now()) {
-    console.log(`Previous tokens expired at ${credentials.expiry_date}`)
-    return getAccessToken(oAuth2Client, scope)
-  }
-
   oAuth2Client.setCredentials(credentials)
   return oAuth2Client
 }
