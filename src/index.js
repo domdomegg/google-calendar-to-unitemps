@@ -28,10 +28,10 @@ const { unitemps, getJobId } = require('./unitemps');
   console.log('Logging into Unitemps...')
   await unitemps.login(process.env.UNITEMPS_USERNAME, process.env.UNITEMPS_PASSWORD)
 
-  const jobId = process.env.UNITEMPS_JOB_ID || await getJobId(unitemps)
+  const jobId = process.env.UNITEMPS_JOB_ID || await getJobId()
 
   console.log('Saving draft timesheet...')
-  await unitemps.saveDraftTimesheet({
+  await unitemps.upsertTimesheet({
     jobId,
     timesheetId: process.env.UNITEMPS_TIMESHEET_ID,
     weekEnding: dayjs(timeMax).format(ISO_8601_DATE),

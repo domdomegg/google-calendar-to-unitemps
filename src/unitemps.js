@@ -2,8 +2,8 @@ const unitemps = require('unitemps-sdk').default
 
 const { interactiveSelect } = require('./util')
 
-const getJobId = async (unitemps) => {
-  const jobs = (await unitemps.getJobs()).jobs.filter(job => job.status === 'Current')
+const getJobId = async () => {
+  const jobs = (await unitemps.getJobs()).data.filter(job => job.status === 'Current')
 
   console.log('Getting jobs...')
   const job = await interactiveSelect(
