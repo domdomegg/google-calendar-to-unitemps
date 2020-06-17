@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "dependencies": {
-    "dayjs": "^1.8.21",
+    "dayjs": "^1.8.28",
     "dotenv": "^8.2.0",
     "googleapis": "^47.0.0",
     "unitemps-sdk": "^2.0.0"
   },
   "devDependencies": {
-    "jest": "^25.1.0",
-    "standard": "^14.3.1"
+    "jest": "^25.5.4",
+    "standard": "^14.3.4"
   },
   "scripts": {
     "start": "node -r dotenv/config src/index.js",
