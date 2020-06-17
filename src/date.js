@@ -9,13 +9,13 @@ const ISO_8601_DATE = 'YYYY-MM-DD'
 
 // Show the user possible dates and get them to pick one or enter a custom one
 const getTargetDate = async () => {
-  const potentialDates = [0, 1, 2, 3, 4].map(weeks => dayjs().subtract(weeks, 'week').endOf('week'))
+  const potentialDates = [0, 1, 2, 3, 4, 5, 6, 7, 8].map(weeks => dayjs().subtract(weeks, 'week').endOf('week'))
 
   const date = await interactiveSelect(
     potentialDates,
     date => `${date.format(ISO_8601_DATE)}`,
     dateMatcher,
-    'week'
+    'week ending'
   )
 
   return date

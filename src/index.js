@@ -21,7 +21,7 @@ const { unitemps, getJobId } = require('./unitemps');
   console.log(events.map((event, index) => `  ${index}: [${event.start.dateTime} - ${event.end.dateTime}] ${event.summary}`).join('\n'))
 
   if (events.length === 0) {
-    console.log(`No events in week of ${targetDate}, not uploading anything to Unitemps`)
+    console.log(`No events in week ending ${targetDate}, not uploading anything to Unitemps`)
     return
   }
 
