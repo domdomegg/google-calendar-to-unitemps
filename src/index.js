@@ -11,7 +11,10 @@ const { unitemps, getJobId } = require('./unitemps');
   const calendar = await getAuthAndCalendarClient()
   const calendarId = process.env.CALENDAR_ID || await getCalendarId(calendar)
 
-  const targetDate = (process.env.TARGET_DATE && dayjs(process.env.TARGET_DATE)) || await getTargetDate()
+  console.log('Logging into Unitemps...')
+  await unitemps.login(process.env.UNITEMPS_USERNAME, process.env.UNITEMPS_PASSWORD)
+
+  const targetDate = (process.env.TARGET_DATE && dayjs(process.env.TARGET_DATE)) || await getTargetDate(unitemps)
   const timeMin = targetDate.startOf('week').toISOString()
   const timeMax = targetDate.endOf('week').toISOString()
 
@@ -25,18 +28,16 @@ const { unitemps, getJobId } = require('./unitemps');
     return
   }
 
-  console.log('Logging into Unitemps...')
-  await unitemps.login(process.env.UNITEMPS_USERNAME, process.env.UNITEMPS_PASSWORD)
-
   const jobId = process.env.UNITEMPS_JOB_ID || await getJobId()
 
-  console.log('Saving draft timesheet...')
+  console.log('Submitting timesheet...')
   await unitemps.upsertTimesheet({
     jobId,
     timesheetId: process.env.UNITEMPS_TIMESHEET_ID,
     weekEnding: dayjs(timeMax).format(ISO_8601_DATE),
     hoursWorked: eventsToHoursWorked(events),
-    notes: eventsToSummary(events)
+    notes: eventsToSummary(events),
+    submitAction: 'submit'
   })
-  console.log('Saved draft timesheet')
+  console.log('Subitted timesheet')
 })()

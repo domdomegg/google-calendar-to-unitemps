@@ -8,8 +8,12 @@ const { interactiveSelect } = require('./util')
 const ISO_8601_DATE = 'YYYY-MM-DD'
 
 // Show the user possible dates and get them to pick one or enter a custom one
-const getTargetDate = async () => {
-  const potentialDates = [0, 1, 2, 3, 4, 5, 6, 7, 8].map(weeks => dayjs().subtract(weeks, 'week').endOf('week'))
+const getTargetDate = async (unitemps) => {
+  const potentialDates = [0, 1, 2, 3, 4, 5, 6].map(weeks => dayjs().subtract(weeks, 'week').endOf('week'))
+
+  const mostRecentTimesheets = (await unitemps.getTimesheets()).data.slice(0, 3)
+  console.log('Your most recent timesheets are:')
+  console.log(mostRecentTimesheets.map((timesheet, index) => `  ${timesheet.weekEnding.asText} | ${timesheet.jobTitle}`).join('\n'))
 
   const date = await interactiveSelect(
     potentialDates,
