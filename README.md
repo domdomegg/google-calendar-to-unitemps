@@ -20,4 +20,4 @@ Pull events out of Google Calendar and enters them in as a timesheet to Unitemps
 
 This won't enter events that cross days (e.g. 11:30pm to 00:30am). As a simple workaround, just split the event into two (e.g. 11:30pm to midnight, midnight to 00:30am).
 
-I'm unlikely to improve this as I rarely work over midnight. Feel free to submit a PR if you add this! :)
+I'm unlikely to improve this as I didn't work over midnight. A PR is welcomed to fix this if necessary.
