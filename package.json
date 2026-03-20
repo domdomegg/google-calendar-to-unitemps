@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "standard": "^16.0.3"
+    "standard": "^16.0.4"
   },
   "scripts": {
     "start": "node -r dotenv/config src/index.js",
